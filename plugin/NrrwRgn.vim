@@ -48,44 +48,44 @@ fun! <sid>NrrwRgnOp(type, ...) " {{{3
 endfu
 
 " Define the Command aliases "{{{2
-com! -range -bang NRPrepare :<line1>,<line2>NRP<bang>
-com! -bang -range NarrowRegion :<line1>,<line2>NR
-com! -bang NRMulti :NRM<bang>
-com! -bang NarrowWindow :NW
-com! -bang NRLast :NRL
+" com! -range -bang NRPrepare :<line1>,<line2>NRP<bang>
+" com! -bang -range NarrowRegion :<line1>,<line2>NR
+" com! -bang NRMulti :NRM<bang>
+" com! -bang NarrowWindow :NW
+" com! -bang NRLast :NRL
 
 " Define the actual Commands "{{{2
 com! -range -bang NR	 :<line1>, <line2>call nrrwrgn#NrrwRgn('',<q-bang>)
-com! -range -bang NRP    :<line1>, <line2>call nrrwrgn#Prepare(<q-bang>)
-com! -bang -range NRV :call nrrwrgn#NrrwRgn(visualmode(), <q-bang>)
-com! -range NRUnprepare    :<line1>, <line2>call nrrwrgn#Unprepare()
-com! NUD :call nrrwrgn#UnifiedDiff()
-com! -bang NW	 :exe ":" . line('w0') . ',' . line('w$') . "call nrrwrgn#NrrwRgn(0,<q-bang>)"
-com! -bang NRM :call nrrwrgn#NrrwRgnDoMulti(<q-bang>)
-com! -bang NRL :call nrrwrgn#LastNrrwRgn(<q-bang>)
+" com! -range -bang NRP    :<line1>, <line2>call nrrwrgn#Prepare(<q-bang>)
+" com! -bang -range NRV :call nrrwrgn#NrrwRgn(visualmode(), <q-bang>)
+" com! -range NRUnprepare    :<line1>, <line2>call nrrwrgn#Unprepare()
+" com! NUD :call nrrwrgn#UnifiedDiff()
+" com! -bang NW	 :exe ":" . line('w0') . ',' . line('w$') . "call nrrwrgn#NrrwRgn(0,<q-bang>)"
+" com! -bang NRM :call nrrwrgn#NrrwRgnDoMulti(<q-bang>)
+" com! -bang NRL :call nrrwrgn#LastNrrwRgn(<q-bang>)
 
 " Define the Mapping: "{{{2
-if !hasmapto('<Plug>NrrwrgnDo') && !get(g:, 'nrrw_rgn_nomap_nr', 0)
-	xmap <unique> <Leader>nr <Plug>NrrwrgnDo
-	nmap <unique> <Leader>nr <Plug>NrrwrgnDo
-endif
-if !hasmapto('<Plug>NrrwrgnBangDo') && !get(g:, 'nrrw_rgn_nomap_Nr', 0)
-	xmap <unique> <Leader>Nr <Plug>NrrwrgnBangDo
-endif
-if !hasmapto('VisualNrrwRgn')
-	xnoremap <unique> <script> <Plug>NrrwrgnDo <sid>VisualNrrwRgn
-	nnoremap <unique> <script> <Plug>NrrwrgnDo <sid>VisualNrrwRgn
-endif
-if !hasmapto('VisualNrrwRgnBang')
-	xnoremap <unique> <script> <Plug>NrrwrgnBangDo <sid>VisualNrrwBang
-endif
-xnoremap <sid>VisualNrrwRgn  :<c-u>call nrrwrgn#NrrwRgn(visualmode(),'')<cr>
-xnoremap <sid>VisualNrrwBang :<c-u>call nrrwrgn#NrrwRgn(visualmode(),'!')<cr>
-
-" operator function
-nnoremap <sid>VisualNrrwRgn :set opfunc=<sid>NrrwRgnOp<cr>g@
+" if !hasmapto('<Plug>NrrwrgnDo') && !get(g:, 'nrrw_rgn_nomap_nr', 0)
+" 	xmap <unique> <Leader>nr <Plug>NrrwrgnDo
+" 	nmap <unique> <Leader>nr <Plug>NrrwrgnDo
+" endif
+" if !hasmapto('<Plug>NrrwrgnBangDo') && !get(g:, 'nrrw_rgn_nomap_Nr', 0)
+" 	xmap <unique> <Leader>Nr <Plug>NrrwrgnBangDo
+" endif
+" if !hasmapto('VisualNrrwRgn')
+" 	xnoremap <unique> <script> <Plug>NrrwrgnDo <sid>VisualNrrwRgn
+" 	nnoremap <unique> <script> <Plug>NrrwrgnDo <sid>VisualNrrwRgn
+" endif
+" if !hasmapto('VisualNrrwRgnBang')
+" 	xnoremap <unique> <script> <Plug>NrrwrgnBangDo <sid>VisualNrrwBang
+" endif
+" xnoremap <sid>VisualNrrwRgn  :<c-u>call nrrwrgn#NrrwRgn(visualmode(),'')<cr>
+" xnoremap <sid>VisualNrrwBang :<c-u>call nrrwrgn#NrrwRgn(visualmode(),'!')<cr>
+"
+" " operator function
+" nnoremap <sid>VisualNrrwRgn :set opfunc=<sid>NrrwRgnOp<cr>g@
 
 " Restore: "{{{1
-let &cpo=s:cpo
-unlet s:cpo
+" let &cpo=s:cpo
+" unlet s:cpo
 " vim: ts=4 sts=4 fdm=marker com+=l\:\"
